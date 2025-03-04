@@ -30,7 +30,7 @@ export function LoginForm() {
     })
 
     return (
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center h-[100vh] sm:col-span-1 px-3 md:px-0'>
             <div className='space-y-8'>
                 <div className='flex gap-2'>
                     <Image src={logo} alt='horizon bank logo' width={30} height={30} />
