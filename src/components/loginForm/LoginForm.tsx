@@ -1,10 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
-import logo from '../../../public/logo.png'
+import { Logo } from '../logo/logo'
 import { PasswordInput } from '../passwordInput/PasswordInput'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
@@ -29,13 +30,16 @@ export function LoginForm() {
         resolver: zodResolver(loginSchema)
     })
 
+    const router = useRouter()
+
+    function handleLogin(data: typeloginSchema) {
+        router.push('/dashboard')
+    }
+
     return (
         <div className='flex items-center justify-center h-[100vh] sm:col-span-1 px-3 md:px-0'>
             <div className='space-y-8'>
-                <div className='flex gap-2'>
-                    <Image src={logo} alt='horizon bank logo' width={30} height={30} />
-                    <h2 className='text-sky-950 font-bold ibm leading-7 text-3xl'>Horizon</h2>
-                </div>
+                <Logo />
                 <div className='space-y-6'>
                     <div className='flex flex-col gap-3'>
                         <h1 className='font-semibold text-4xl tracking-[-2px]'>Log in</h1>
@@ -43,7 +47,7 @@ export function LoginForm() {
                     </div>
                     <div>
                         <Form {...form}>
-                            <form className="space-y-6 flex flex-col w-full">
+                            <form onSubmit={form.handleSubmit(handleLogin)} noValidate className="space-y-6 flex flex-col w-full">
                                 <FormField
                                     control={form.control}
                                     name="email"
@@ -64,7 +68,7 @@ export function LoginForm() {
                                         <FormItem>
                                             <FormLabel className='text-gray-600'>Password</FormLabel>
                                             <FormControl>
-                                                <PasswordInput field={field} {...field} />
+                                                <PasswordInput field={field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -76,7 +80,9 @@ export function LoginForm() {
                     </div>
                     <div className='flex justify-center gap-1 text-sm'>
                         <span className='text-gray-600'>Don’t have an account?</span>
-                        <span className='text-blue-500 font-semibold'>Sign up</span>
+                        <Link href={"/signup"}>
+                            <span className='text-blue-500 font-semibold'>Sign up</span>
+                        </Link>
                     </div>
                 </div>
             </div>
