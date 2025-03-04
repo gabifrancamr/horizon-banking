@@ -1,21 +1,18 @@
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 import { useState } from "react"
-import { ControllerRenderProps } from "react-hook-form"
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
-interface PasswordProps {
-    field: ControllerRenderProps<{
-        email: string;
-        password: string;
-    }, "password">
+interface PasswordProps<T extends FieldValues, K extends Path<T>> {
+    field: ControllerRenderProps<T, K>
 }
 
-export function PasswordInput({ field }: PasswordProps) {
-    const [showPassword, setshowPassword] = useState(false)
+export function PasswordInput<T extends FieldValues, K extends Path<T>>({ field }: PasswordProps<T, K>) {
+    const [showPassword, setShowPassword] = useState(false)
 
     function handleShowPassword() {
-        setshowPassword(!showPassword)
+        setShowPassword(!showPassword)
     }
 
     return (
